@@ -10,4 +10,13 @@ module.exports = {
   rules: {
     'no-floating-result/no-unchecked-result': 'error',
   },
+  overrides: [
+    {
+      files: ['tests/**/*.ts'],
+      parserOptions: {
+        project: './tests/tsconfig.json',
+        tsconfigRootDir: __dirname,
+      },
+    },
+  ],
 };

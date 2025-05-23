@@ -98,5 +98,33 @@ ruleTester.run('no-unchecked-result', noUncheckedResult, {
         },
       ],
     },
+    {
+      code: `
+        import { CheckedResult } from '../../src/types';
+        
+        type BarSuccess = { type: "ok" };
+        type BarError = { type: "ng" };
+        
+        type Bar = BarSuccess | BarError;
+        type CheckedBar = CheckedResult<Bar, "type">;
+        
+        function getBar(): CheckedBar {
+          if (Math.random() > 0.5) {
+             return {type: 'ok'};
+          }
+          return {type: 'ng'};
+        }
+        
+        function lintErrorSample2() {
+           getBar();  // type is not checked
+        }
+      `,
+      filename: 'test.ts',
+      errors: [
+        {
+          messageId: 'noUncheckedResult',
+        },
+      ],
+    },
   ],
 });
