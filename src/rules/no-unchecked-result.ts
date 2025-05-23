@@ -39,7 +39,8 @@ export const noUncheckedResult: Rule.RuleModule = {
         ) {
           const variableName = node.id.name;
           const sourceCode = context.getSourceCode();
-          const variable = sourceCode.getScope().variables.find(
+          const scope = sourceCode.getScope(node);
+          const variable = scope.variables.find(
             (v: any) => v.name === variableName
           );
           
